@@ -13,4 +13,12 @@ if (!firebase.apps.length) {
     appId: '1:798605891433:web:0c5d57b415a451f4258ff8',
   })
 }
+firebase.getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+      unsubscribe()
+      resolve(user)
+    }, reject)
+  })
+}
 export default firebase

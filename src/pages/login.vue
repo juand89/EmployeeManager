@@ -34,6 +34,7 @@
               class="bg-blue-500 text-gray-100 p-4 w-full rounded-full tracking-wide
                     font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-blue-600
                     shadow-lg"
+              @click="login"
             >
               Log In
             </button>
@@ -45,6 +46,7 @@
 </template>
 <script>
 import TheInput from '@/components/TheInput.vue'
+import firebase from '../../plugins/firebase.js'
 export default {
   data() {
     return {
@@ -55,5 +57,19 @@ export default {
   components: {
     TheInput,
   },
+  methods: {
+    login() {
+      console.log(this.email, this.password)
+      firebase
+      .auth()
+      .signInWithEmailAndPassword(this.email, this.password)
+      .then(() => {
+        this.$router.push('/');
+      })
+      .catch(error => {
+        alert(error.message);
+      });
+    }
+  }
 }
 </script>
