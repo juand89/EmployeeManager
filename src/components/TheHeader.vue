@@ -7,6 +7,7 @@
       <div class="flex-grow flex-row-reverse  flex">
           <button
             class="text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-green-500 hover:bg-white "
+            @click="logout"
           >
             Log Out
           </button>
@@ -14,3 +15,18 @@
     </div>
   </header>
 </template>
+<script>
+import firebase from '../../plugins/firebase.js'
+export default {
+  methods: {
+    logout() {
+      firebase.auth().signOut().then(() => {
+        this.$router.push('login')
+      }).catch((error) => {
+        console.log(error);
+        alert(error);
+      });
+    }
+  }
+}
+</script>
