@@ -25,7 +25,8 @@ firebase.getCurrentUser = () => {
 const db = firebase.firestore()
 const auth = firebase.auth()
 // collection references
-const usersCollection = db.collection('users')
+const employeesCollection = db.collection('employees')
+const firestoreTime = firebase.firestore.FieldValue.serverTimestamp()
 export {
-  db, auth, usersCollection, firebase
+  db, auth, employeesCollection, firebase, firestoreTime
 }
