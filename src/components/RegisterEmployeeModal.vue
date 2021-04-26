@@ -91,6 +91,7 @@
 <script>
 import BaseModal from '@/components/BaseModal.vue'
 import TheInput from '@/components/TheInput.vue'
+import { auth, usersCollection } from '../../plugins/firebase.js'
 export default {
   components: {
     BaseModal,
@@ -108,7 +109,24 @@ export default {
     }
   },
   methods: {
-    registerEmployee() {},
+    registerEmployee() {
+      auth().createUserWithEmailAndPassword(
+        this.employee.email, 
+        this.employee.password,
+      ).then((userRecord)=> {
+        usersCollection.doc(userRecord.user.uid).set({
+          email: this.employee.email, 
+          fistName: this.employee.firstName,
+          lastName: this.employee.lastName,
+          position: this.employee.position,
+          role: 'employee'
+        })
+        this.$emit('closeModal')
+      }).catch((error)=> {
+        alert(error)
+        console.error(error);
+      })
+    },
   },
 }
 </script>
