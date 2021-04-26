@@ -81,7 +81,7 @@
                     shadow-lg"
             @click="submitEmployee"
           >
-            {{ edit ? 'Register Employee' : 'Update Employee' }}
+            {{ isEdit ? 'Register Employee' : 'Update Employee' }}
           </button>
         </div>
       </form>
