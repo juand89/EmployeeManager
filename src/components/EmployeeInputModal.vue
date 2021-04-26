@@ -53,7 +53,7 @@
             placeholder="Enter position of the employee"
           />
         </div>
-        <div>
+        <div v-if="!isEdit">
           <TheInput
             label="Email"
             v-model="employee.email"
@@ -63,7 +63,7 @@
             placeholder="Enter email"
           />
         </div>
-        <div class="mt-8">
+        <div v-if="!isEdit" class="mt-8">
           <div>
             <TheInput
               label="Password"
@@ -79,9 +79,9 @@
             class="bg-blue-500 text-gray-100 p-4 w-full rounded-full tracking-wide
                     font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-blue-600
                     shadow-lg"
-            @click="registerEmployee"
+            @click="submitEmployee"
           >
-            Register Employee
+            {{ edit ? 'Register Employee' : 'Update Employee' }}
           </button>
         </div>
       </form>
@@ -91,7 +91,11 @@
 <script>
 import BaseModal from '@/components/BaseModal.vue'
 import TheInput from '@/components/TheInput.vue'
-import { auth, employeesCollection, firestoreTime } from '../../plugins/firebase.js'
+import {
+  auth,
+  employeesCollection,
+  firestoreTime,
+} from '../../plugins/firebase.js'
 export default {
   components: {
     BaseModal,
@@ -108,26 +112,66 @@ export default {
       },
     }
   },
+  props: {
+    employeeEdit: {
+      type: Object,
+      default: function() {
+        return {
+          id: '',
+          firstName: '',
+          lastName: '',
+          position: '',
+          email: '',
+          password: '',
+        }
+      },
+    },
+    isEdit: {
+      type: Boolean,
+      default: false
+    }
+  },
+  created() {
+    if (this.isEdit) {
+      this.employee = JSON.parse(JSON.stringify(this.employeeEdit))
+    }
+  },
   methods: {
-    registerEmployee() {
-      auth.createUserWithEmailAndPassword(
-        this.employee.email, 
-        this.employee.password,
-      ).then((employeeRecord)=> {
-        employeesCollection.doc(employeeRecord.user.uid).set({
-          email: this.employee.email, 
-          firstName: this.employee.firstName,
-          lastName: this.employee.lastName,
-          position: this.employee.position,
-          createdAt: firestoreTime,
-          updatedAt: firestoreTime,
-          role: 'employee'
-        })
-        this.$emit('closeModal')
-      }).catch((error)=> {
-        alert(error)
-        console.error(error);
+    updateEmployee() {
+      employeesCollection.doc(this.employee.id).update({
+        firstName: this.employee.firstName,
+        lastName: this.employee.lastName,
+        position: this.employee.position,
+        updatedAt: firestoreTime,
       })
+    },
+    submitEmployee() {
+      if (this.isEdit) {
+        this.updateEmployee()
+      } else {
+        auth
+          .createUserWithEmailAndPassword(
+            this.employee.email,
+            this.employee.password
+          )
+          .then((employeeRecord) => {
+            employeesCollection.doc(employeeRecord.user.uid).set({
+              email: this.employee.email,
+              firstName: this.employee.firstName,
+              lastName: this.employee.lastName,
+              position: this.employee.position,
+              createdAt: firestoreTime,
+              updatedAt: firestoreTime,
+              role: 'employee',
+            })
+            this.$emit('fetchEmployees')
+            this.$emit('closeModal')
+          })
+          .catch((error) => {
+            alert(error)
+            console.error(error)
+          })
+      }
     },
   },
 }
