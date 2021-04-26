@@ -16,11 +16,12 @@
   </header>
 </template>
 <script>
-import firebase from '../../plugins/firebase.js'
+import { auth } from '../../plugins/firebase.js'
 export default {
+  name: 'TheHeader',
   methods: {
     logout() {
-      firebase.auth().signOut().then(() => {
+      auth.signOut().then(() => {
         this.$router.push('login')
       }).catch((error) => {
         console.log(error);

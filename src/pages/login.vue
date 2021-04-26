@@ -46,7 +46,7 @@
 </template>
 <script>
 import TheInput from '@/components/TheInput.vue'
-import firebase from '../../plugins/firebase.js'
+import  { auth } from '../../plugins/firebase.js'
 export default {
   data() {
     return {
@@ -59,9 +59,7 @@ export default {
   },
   methods: {
     login() {
-      console.log(this.email, this.password)
-      firebase
-      .auth()
+      auth
       .signInWithEmailAndPassword(this.email, this.password)
       .then(() => {
         this.$router.push('/');
