@@ -5,6 +5,7 @@ module.exports = {
     extend: {
       height: {
         '7/1': '70vh',
+        'fit': 'fit-content',
       },
     },
   },
