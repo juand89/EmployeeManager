@@ -116,7 +116,7 @@ export default {
       ).then((employeeRecord)=> {
         employeesCollection.doc(employeeRecord.user.uid).set({
           email: this.employee.email, 
-          fistName: this.employee.firstName,
+          firstName: this.employee.firstName,
           lastName: this.employee.lastName,
           position: this.employee.position,
           createdAt: firestoreTime,
