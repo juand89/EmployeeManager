@@ -1,6 +1,7 @@
 <template>
   <BaseModal @close="$emit('closeModal')">
     <div class="max-w-xs md:max-w-md">
+      <!--  header section -->
       <div
         class="flex flex-row-reverse justify-between p-5 py-3 bg-white border-b border-gray-200 "
       >
@@ -20,6 +21,7 @@
           ></path>
         </svg>
       </div>
+      <!-- form section -->
       <form
         class="flex flex-col justify-center space-y-5  bg-white w-96 max-w-xs md:max-w-md shadow-xl p-5"
       >
@@ -81,7 +83,7 @@
                     shadow-lg"
             @click="submitEmployee"
           >
-            {{ isEdit ? 'Register Employee' : 'Update Employee' }}
+            {{ isEdit ? 'Update Employee' : 'Register Employee' }}
           </button>
         </div>
       </form>
@@ -128,8 +130,8 @@ export default {
     },
     isEdit: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   created() {
     if (this.isEdit) {
@@ -146,31 +148,42 @@ export default {
       })
     },
     submitEmployee() {
-      if (this.isEdit) {
-        this.updateEmployee()
-      } else {
-        auth
-          .createUserWithEmailAndPassword(
-            this.employee.email,
-            this.employee.password
-          )
-          .then((employeeRecord) => {
-            employeesCollection.doc(employeeRecord.user.uid).set({
-              email: this.employee.email,
-              firstName: this.employee.firstName,
-              lastName: this.employee.lastName,
-              position: this.employee.position,
-              createdAt: firestoreTime,
-              updatedAt: firestoreTime,
-              role: 'employee',
+      if (this.employee.firstName && this.employee.lastName && this.employee.position) {
+        if (this.isEdit) {
+          this.updateEmployee()
+        } else {
+          auth
+            .createUserWithEmailAndPassword(
+              this.employee.email,
+              this.employee.password
+            )
+            .then((employeeRecord) => {
+              employeesCollection
+                .doc(employeeRecord.user.uid)
+                .set({
+                  email: this.employee.email,
+                  firstName: this.employee.firstName,
+                  lastName: this.employee.lastName,
+                  position: this.employee.position,
+                  createdAt: firestoreTime,
+                  updatedAt: firestoreTime,
+                  role: 'employee',
+                })
+                .then(() => {
+                  // TODO: Implement firebase functions to create a new user
+                  auth
+                    .signInWithEmailAndPassword('admin@example.com', 'asdf0987')
+                    .then(() => {
+                      this.$emit('fetchEmployees')
+                      this.$emit('closeModal')
+                    })
+                })
             })
-            this.$emit('fetchEmployees')
-            this.$emit('closeModal')
-          })
-          .catch((error) => {
-            alert(error)
-            console.error(error)
-          })
+            .catch((error) => {
+              alert(error)
+              console.error(error)
+            })
+        }
       }
     },
   },
