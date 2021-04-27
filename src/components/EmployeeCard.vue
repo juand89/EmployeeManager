@@ -19,10 +19,10 @@
 
     <!-- Footer -->
     <div class="flex items-baseline  justify-between sm:p-7 p-3">
-      <p v-if="!isAdmin" class="pl-1 text-sm sm:text-right">Requested On: {{ formatDate }}</p>
-      <p v-else class="pl-1 text-sm sm:text-right">Started On: {{ formatDate }}</p>
+      <p v-if="!isAdmin" class="pl-1 text-sm ">Requested On: {{ formatDate }}</p>
+      <p v-else class="pl-1 text-sm ">Started On: {{ formatDate }}</p>
       <button
-        class="px-2.5 sm:ml-10 ml-9 py-1  font-bold text-center text-white bg-green-400 hover:bg-green-600 rounded-full text-xs sm:text-base"
+        class="px-2.5 sm:ml-3 ml-9 py-1  font-bold text-center text-white bg-green-400 hover:bg-green-600 rounded-full text-xs sm:text-base"
         @click="$emit('handleButton')"
       >
         {{
