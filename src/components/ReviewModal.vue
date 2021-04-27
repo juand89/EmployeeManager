@@ -81,17 +81,19 @@ export default {
   },
   methods: {
     submitReview() {
-      employeesCollection.doc(this.userId).collection('reviews').doc(this.employee.id).update({
-        review: this.review,
-        updatedAt: firestoreTime,
-        status: 'completed'
-      }).then(() => {
-        this.$emit('closeModal')
-        this.$emit('updateStatus', this.employee, this.review)
-      }).catch((error) => {
-        console.error(error)
-        alert(error)
-      })
+      if (this.review) {
+        employeesCollection.doc(this.userId).collection('reviews').doc(this.employee.id).update({
+          review: this.review,
+          updatedAt: firestoreTime,
+          status: 'completed'
+        }).then(() => {
+          this.$emit('closeModal')
+          this.$emit('updateStatus', this.employee, this.review)
+        }).catch((error) => {
+          console.error(error)
+          alert(error)
+        })
+      }
     }
   }
 }
