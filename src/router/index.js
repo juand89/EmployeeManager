@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import login from '../pages/login.vue'
 import main from '../pages/main.vue'
+import employee from '../pages/employee.vue'
 import { firebase } from '../../plugins/firebase.js'
 Vue.use(VueRouter)
 
@@ -10,6 +11,14 @@ const routes = [
     path: '/',
     name: 'Home',
     component: main,
+    meta: {
+      authRequired: true,
+    },
+  },
+  {
+    path: '/employee/:id',
+    name: 'employee',
+    component: employee,
     meta: {
       authRequired: true,
     },
