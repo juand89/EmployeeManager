@@ -6,6 +6,7 @@ module.exports = {
       height: {
         '7/1': '70vh',
         'fit': 'fit-content',
+        'fit-screen': '80vh'
       },
     },
   },

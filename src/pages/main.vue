@@ -13,7 +13,7 @@
       v-if="showCreateModal"
     />
     <div
-      class="container flex border-b-2 justify-between w-full bg-teal sm:px-10 px-2 my-10 items-center pb-5"
+      class="container flex border-b-2 justify-between w-full bg-teal sm:px-10 px-2 py-10 items-center pb-5"
     >
       <span class="mb-2 font-semibold text-gray-700 text-xl">
         Employees
@@ -29,7 +29,7 @@
       </button>
     </div>
     <div
-      class="container py-2 md:px-5 grid grid-cols-1 gap-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 max-w-7xl "
+      class="container py-2 md:px-5 grid grid-cols-1 gap-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 max-w-7xl h-fit-screen overflow-y-scroll sm:overflow-y-auto sm:h-auto"
     >
       <div v-for="employee in employees" :key="employee.id">
         <EmployeeCard
