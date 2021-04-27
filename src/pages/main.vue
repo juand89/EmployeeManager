@@ -1,5 +1,6 @@
 <template>
   <div id="main" class="bg-gray-100 h-screen overflow-y-hidden">
+     <!-- modal section -->
     <ReviewModal
       v-if="showReviewModal"
       :employee="employee"
@@ -12,6 +13,7 @@
       @fetchEmployees="fetchEmployees"
       v-if="showCreateModal"
     />
+    <!-- Sub header section -->
     <div
       class="container flex border-b-2 justify-between w-full bg-teal sm:px-10 px-2 py-10 items-center pb-5"
     >
@@ -28,6 +30,7 @@
         Add Employee
       </button>
     </div>
+    <!-- Employee list section -->
     <div
       class="container py-2 md:px-5 grid grid-cols-1 gap-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 max-w-7xl h-fit-screen overflow-y-scroll sm:overflow-y-auto sm:h-auto"
     >
@@ -86,6 +89,7 @@ export default {
         .orderBy('createdAt', 'desc')
         .get()
       employees.forEach((employee) => {
+        // assign the document id to the employee
         const employeeData = Object.assign({ id: employee.id }, employee.data())
         this.employees.push(employeeData)
       })
