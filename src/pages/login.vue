@@ -2,12 +2,12 @@
   <div id="main" class="h-screen bg-gray-50">
     <div class="flex flex-col justify-center items-center w-full h-7/1">
       <h2
-        class="text-center text-4xl text-blue-500 font-display font-semibold lg:text-left xl:text-5xl xl:text-bold sm:mb-24 mb-20"
+        class="text-center text-4xl text-blue-500 font-display font-semibold lg:text-left xl:text-5xl xl:text-bold sm:mb-24 sm:mt-0 mt-10 mb-10"
       >
         Employee Login
       </h2>
       <div>
-        <form class="flex flex-col justify-center space-y-5 mt-5 bg-white w-96 shadow-xl rounded p-5">
+        <form class="flex flex-col justify-center space-y-5 mt-5 bg-white max-w-xs md:max-w-md w-96 shadow-xl rounded p-5">
           <div>
             <TheInput
               label="Email"

@@ -1,5 +1,5 @@
 <template>
-  <div class="h-fit  bg-white rounded-lg overflow-hidden shadow-md mr-10 mb-5 ">
+  <div class="h-fit  bg-white rounded-lg overflow-hidden shadow-md mx-2 sm:mr-10 mb-5 ">
     <!-- Employee -->
     <div class="p-7 bg-blue-100">
       <div class="flex items-center mt-2">
@@ -18,11 +18,11 @@
     </div>
 
     <!-- Footer -->
-    <div class="flex items-baseline justify-between p-7">
-      <p v-if="!isAdmin" class="pl-2 text-sm text-right">Requested On: {{ formatDate }}</p>
-      <p v-else class="pl-2 text-sm text-right">Started On: {{ formatDate }}</p>
+    <div class="flex items-baseline  justify-between sm:p-7 p-3">
+      <p v-if="!isAdmin" class="pl-1 text-sm sm:text-right">Requested On: {{ formatDate }}</p>
+      <p v-else class="pl-1 text-sm sm:text-right">Started On: {{ formatDate }}</p>
       <button
-        class="px-2.5 ml-10 py-1  font-bold text-center text-white bg-green-400 hover:bg-green-600 rounded-full"
+        class="px-2.5 sm:ml-10 ml-9 py-1  font-bold text-center text-white bg-green-400 hover:bg-green-600 rounded-full text-xs sm:text-base"
         @click="$emit('handleButton')"
       >
         {{

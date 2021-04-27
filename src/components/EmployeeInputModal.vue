@@ -1,6 +1,6 @@
 <template>
   <BaseModal @close="$emit('closeModal')">
-    <div>
+    <div class="max-w-xs md:max-w-md">
       <div
         class="flex flex-row-reverse justify-between p-5 py-3 bg-white border-b border-gray-200 "
       >
@@ -21,7 +21,7 @@
         </svg>
       </div>
       <form
-        class="flex flex-col justify-center space-y-5  bg-white w-96 shadow-xl p-5"
+        class="flex flex-col justify-center space-y-5  bg-white w-96 max-w-xs md:max-w-md shadow-xl p-5"
       >
         <div>
           <TheInput
