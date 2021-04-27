@@ -1,5 +1,5 @@
 <template>
-  <div class="h-fit  bg-white rounded-lg overflow-hidden shadow-md mx-2 sm:mr-10 mb-5 ">
+  <div class="h-fit  bg-white rounded-lg overflow-hidden shadow-md mx-2  mb-5 ">
     <!-- Employee -->
     <div class="p-7 bg-blue-100">
       <div class="flex items-center mt-2">
