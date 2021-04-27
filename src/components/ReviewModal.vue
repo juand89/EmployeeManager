@@ -87,7 +87,7 @@ export default {
         status: 'completed'
       }).then(() => {
         this.$emit('closeModal')
-        this.$emit('updateStatus', this.employee)
+        this.$emit('updateStatus', this.employee, this.review)
       }).catch((error) => {
         console.error(error)
         alert(error)
