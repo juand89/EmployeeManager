@@ -19,7 +19,9 @@
 
     <!-- Footer -->
     <div class="flex items-baseline  justify-between sm:p-7 p-3">
-      <p v-if="!isAdmin" class="pl-1 text-sm ">Requested On: {{ formatDate }}</p>
+      <p v-if="!isAdmin" class="pl-1 text-sm ">
+        Requested On: {{ formatDate }}
+      </p>
       <p v-else class="pl-1 text-sm ">Started On: {{ formatDate }}</p>
       <button
         class="px-2.5 sm:ml-3 ml-9 py-1  font-bold text-center text-white bg-green-400 hover:bg-green-600 rounded-full text-xs sm:text-base"
@@ -28,7 +30,7 @@
         {{
           isAdmin
             ? 'Employee Detail'
-            : employee.review 
+            : employee.review
             ? 'Show review'
             : 'Submit a review'
         }}
@@ -47,7 +49,7 @@ export default {
           firstName: '',
           lastName: '',
           position: '',
-          review: ''
+          review: '',
         }
       },
     },
@@ -57,21 +59,33 @@ export default {
     },
     isAdmin: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   computed: {
     showInitials() {
       if (this.employee.firstName && this.employee.lastName) {
-        return this.employee.firstName.trim().substring(0, 1).toUpperCase() + this.employee.lastName.trim().substring(0, 1).toUpperCase();
+        return (
+          this.employee.firstName
+            .trim()
+            .substring(0, 1)
+            .toUpperCase() +
+          this.employee.lastName
+            .trim()
+            .substring(0, 1)
+            .toUpperCase()
+        )
       }
       return 'NA'
     },
     formatDate() {
-      const options = { year: 'numeric', month: 'short', day: 'numeric' }
-      const date = new Date(this.employee.createdAt.toDate())
-      return date.toLocaleDateString(options)
-    }
+      if (this.employee.createdAt) {
+        const options = { year: 'numeric', month: 'short', day: 'numeric' }
+        const date = new Date(this.employee.createdAt.toDate())
+        return date.toLocaleDateString(options)
+      }
+      return ''
+    },
   },
 }
 </script>

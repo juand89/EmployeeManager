@@ -3,7 +3,7 @@
     id="employee"
     class="bg-gray-100 h-screen overflow-y-hidden px-4 md:px-10 py-10"
   >
-  <!-- modal section -->
+    <!-- modal section -->
     <SelectEmployeesModal
       :employees="employees"
       @selectEmployee="selectEmployee"
@@ -292,13 +292,17 @@ export default {
       employee.isSelected = !employee.isSelected
     },
     deleteEmployee() {
-      employeesCollection.doc(this.employee.id).delete().then(() => {
-        this.$router.push('/')
-      }).catch((error) => {
-        console.error(error)
-        alert(error)
-      })
-    }
+      employeesCollection
+        .doc(this.employee.id)
+        .delete()
+        .then(() => {
+          this.$router.push('/')
+        })
+        .catch((error) => {
+          console.error(error)
+          alert(error)
+        })
+    },
   },
 }
 </script>

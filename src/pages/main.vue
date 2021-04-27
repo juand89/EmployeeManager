@@ -1,6 +1,6 @@
 <template>
   <div id="main" class="bg-gray-100 h-screen overflow-y-hidden">
-     <!-- modal section -->
+    <!-- modal section -->
     <ReviewModal
       v-if="showReviewModal"
       :employee="employee"
@@ -135,5 +135,4 @@ export default {
   margin-right: auto;
   margin-left: auto;
 }
-
 </style>

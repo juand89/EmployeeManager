@@ -7,7 +7,9 @@
         Employee Login
       </h2>
       <div>
-        <form class="flex flex-col justify-center space-y-5 mt-5 bg-white max-w-xs md:max-w-md w-96 shadow-xl rounded p-5">
+        <form
+          class="flex flex-col justify-center space-y-5 mt-5 bg-white max-w-xs md:max-w-md w-96 shadow-xl rounded p-5"
+        >
           <div>
             <TheInput
               label="Email"
@@ -46,7 +48,7 @@
 </template>
 <script>
 import TheInput from '@/components/TheInput.vue'
-import  { auth } from '../../plugins/firebase.js'
+import { auth } from '../../plugins/firebase.js'
 export default {
   data() {
     return {
@@ -60,14 +62,14 @@ export default {
   methods: {
     login() {
       auth
-      .signInWithEmailAndPassword(this.email, this.password)
-      .then(() => {
-        this.$router.push('/');
-      })
-      .catch(error => {
-        alert(error.message);
-      });
-    }
-  }
+        .signInWithEmailAndPassword(this.email, this.password)
+        .then(() => {
+          this.$router.push('/')
+        })
+        .catch((error) => {
+          alert(error.message)
+        })
+    },
+  },
 }
 </script>

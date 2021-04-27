@@ -7,7 +7,9 @@
       <div
         class="flex flex-row justify-between p-5 bg-white border-b border-gray-200 rounded-tl-lg rounded-tr-lg"
       >
-        <p class="font-semibold text-gray-800">{{ `${this.employee.firstName} ${this.employee.lastName}` }}</p>
+        <p class="font-semibold text-gray-800">
+          {{ `${this.employee.firstName} ${this.employee.lastName}` }}
+        </p>
         <svg
           @click="$emit('closeModal')"
           class="w-6 h-6 cursor-pointer"
@@ -25,7 +27,10 @@
         </svg>
       </div>
       <!-- comment section -->
-      <div class="flex flex-col px-6 py-5 bg-gray-50" :class="{'rounded-b-lg': employee.review}">
+      <div
+        class="flex flex-col px-6 py-5 bg-gray-50"
+        :class="{ 'rounded-b-lg': employee.review }"
+      >
         <p class="mb-2 font-semibold text-gray-700">Your review</p>
         <textarea
           v-if="!employee.review"
@@ -36,7 +41,9 @@
           class="p-5 mb-5 focus:border-blue-500 bg-white border border-gray-200 rounded shadow-sm h-36"
           id="review"
         ></textarea>
-        <p v-else class="p-4 m-6 font-semibold bg-blue-100 border rounded-lg">{{employee.review}}</p>
+        <p v-else class="p-4 m-6 font-semibold bg-blue-100 border rounded-lg">
+          {{ employee.review }}
+        </p>
       </div>
       <!-- submit revieww -->
       <div
@@ -65,37 +72,43 @@ export default {
     employee: {
       type: Object,
       default: function() {
-        return { firstName: '', lastName: ''}
+        return { firstName: '', lastName: '' }
       },
     },
     userId: {
       type: String,
       default: '',
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
-    return { 
+    return {
       review: '',
     }
   },
   methods: {
     submitReview() {
       if (this.review) {
-        employeesCollection.doc(this.userId).collection('reviews').doc(this.employee.id).update({
-          review: this.review,
-          updatedAt: firestoreTime,
-          status: 'completed'
-        }).then(() => {
-          this.$emit('closeModal')
-          this.$emit('updateStatus', this.employee, this.review)
-        }).catch((error) => {
-          console.error(error)
-          alert(error)
-        })
+        employeesCollection
+          .doc(this.userId)
+          .collection('reviews')
+          .doc(this.employee.id)
+          .update({
+            review: this.review,
+            updatedAt: firestoreTime,
+            status: 'completed',
+          })
+          .then(() => {
+            this.$emit('closeModal')
+            this.$emit('updateStatus', this.employee, this.review)
+          })
+          .catch((error) => {
+            console.error(error)
+            alert(error)
+          })
       }
-    }
-  }
+    },
+  },
 }
 </script>
 

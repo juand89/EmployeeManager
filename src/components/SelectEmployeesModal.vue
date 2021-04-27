@@ -1,6 +1,7 @@
 <template>
   <BaseModal @close="$emit('closeModal')">
     <div class="max-w-xs md:max-w-md">
+      <!-- header section --->
       <div
         class="flex flex-row-reverse justify-between p-5 py-3 bg-white border-b border-gray-200 "
       >
@@ -20,6 +21,7 @@
           ></path>
         </svg>
       </div>
+      <!-- employee selection section --->
       <div
         class="flex flex-col justify-center space-y-5 bg-white w-96 shadow-xl p-5 max-w-xs md:max-w-md"
       >
@@ -31,6 +33,7 @@
           id="serach_employee"
           placeholder="Enter employee name"
         />
+        <!-- employee list section --->
         <div class="shadow  bg-white rounded overflow-y-auto">
           <div class="flex flex-col h-72 w-full">
             <div
