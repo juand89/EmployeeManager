@@ -53,6 +53,8 @@
         <button
           class="px-4 py-2 text-gray-700 font-medium bg-white border border-gray-400 rounded hover:bg-gray-100"
           @click="submitReview"
+          :class="isLoading && 'opacity-50 cursor-not-allowed'"
+          :disabled="isLoading"
         >
           Submit
         </button>
@@ -84,11 +86,13 @@ export default {
   data() {
     return {
       review: '',
+      isLoading: false,
     }
   },
   methods: {
     submitReview() {
       if (this.review) {
+        this.isLoading = true
         employeesCollection
           .doc(this.userId)
           .collection('reviews')
@@ -99,10 +103,12 @@ export default {
             status: 'completed',
           })
           .then(() => {
+            this.isLoading = false
             this.$emit('closeModal')
             this.$emit('updateStatus', this.employee, this.review)
           })
           .catch((error) => {
+            this.isLoading = false
             console.error(error)
             alert(error)
           })

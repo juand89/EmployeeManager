@@ -15,6 +15,7 @@
       :employeeEdit="employee"
       :isEdit="true"
       @closeModal="showRegisterEmployees = !showRegisterEmployees"
+      @updateEmployee="getEmployee"
     />
     <DeleteModal
       v-if="showDeleteModal"
@@ -209,15 +210,15 @@ export default {
       reviewers: [],
     }
   },
-  created() {
-    this.getEmployees()
+  async mounted() {
+    await this.getEmployee()
+    await this.fetchEmployees()
   },
   methods: {
-    async getEmployees() {
+    async getEmployee() {
       const id = this.$route.params.id
       const employee = await employeesCollection.doc(id).get()
       this.employee = Object.assign({ id: employee.id }, employee.data())
-      this.fetchEmployees()
     },
     getInitials(firstName, lastName) {
       if (firstName && lastName) {
@@ -292,6 +293,7 @@ export default {
       employee.isSelected = !employee.isSelected
     },
     deleteEmployee() {
+      this.showDeleteModal = false
       employeesCollection
         .doc(this.employee.id)
         .delete()

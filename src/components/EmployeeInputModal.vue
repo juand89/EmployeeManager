@@ -81,6 +81,8 @@
             class="bg-blue-500 text-gray-100 p-4 w-full rounded-full tracking-wide
                     font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-blue-600
                     shadow-lg"
+            :class="isLoading && 'opacity-50 cursor-not-allowed'"
+            :disabled="isLoading"
             @click="submitEmployee"
           >
             {{ isEdit ? 'Update Employee' : 'Register Employee' }}
@@ -112,6 +114,7 @@ export default {
         email: '',
         password: '',
       },
+      isLoading: false,
     }
   },
   props: {
@@ -140,15 +143,32 @@ export default {
   },
   methods: {
     updateEmployee() {
-      employeesCollection.doc(this.employee.id).update({
-        firstName: this.employee.firstName,
-        lastName: this.employee.lastName,
-        position: this.employee.position,
-        updatedAt: firestoreTime,
-      })
+      employeesCollection
+        .doc(this.employee.id)
+        .update({
+          firstName: this.employee.firstName,
+          lastName: this.employee.lastName,
+          position: this.employee.position,
+          updatedAt: firestoreTime,
+        })
+        .then(() => {
+          this.$emit('updateEmployee');
+          this.$emit('closeModal')
+          this.isLoading = false
+        })
+        .catch((error) => {
+          this.isLoading = false
+          console.error(error)
+          alert(error)
+        })
     },
     submitEmployee() {
-      if (this.employee.firstName && this.employee.lastName && this.employee.position) {
+      if (
+        this.employee.firstName &&
+        this.employee.lastName &&
+        this.employee.position
+      ) {
+        this.isLoading = true
         if (this.isEdit) {
           this.updateEmployee()
         } else {
@@ -176,10 +196,12 @@ export default {
                     .then(() => {
                       this.$emit('fetchEmployees')
                       this.$emit('closeModal')
+                      this.isLoading = false
                     })
                 })
             })
             .catch((error) => {
+              this.isLoading = false
               alert(error)
               console.error(error)
             })
