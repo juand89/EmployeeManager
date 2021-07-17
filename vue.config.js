@@ -1,4 +1,4 @@
 module.exports = {
-  publicPath: "/employee-manager/",
+  publicPath: "/EmployeeManager/",
   outputDir: "docs"
 }
