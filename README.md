@@ -1,6 +1,5 @@
-## Description
+![](https://i.imgur.com/ZFJuhJV.png)
 
-***fullstack-engineer-challenge*** is a code challenge.
 ## Summary
 
 This is a website to manage employees and also to leave reviews to employees made by using **Vue.js**, **Tailwind css** and **Firebase** for the the database and API. 
